@@ -6,21 +6,23 @@ var Spotify = require("node-spotify-api");
 var Twitter = require("twitter");
 var fs = require('fs');
 var keys = require('./keys.js');
-
+var imageToAscii = require("image-to-ascii");
 
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
+
+
+
+
+
+// default
+// var songName = 'The Sign'
 
 // get user input
 var param = process.argv[2];
 switch (param) {
   case 'help':
-
-
     console.log(logo());
-    
-
-
     console.log(colors.FgGreen+'Options:'+colors.Reset);
     console.log('  my-tweets');  
     console.log(colors.Dim+'  This will show your last 20 tweets and when they were created'+colors.Reset); 
@@ -36,6 +38,8 @@ switch (param) {
 
     break;
   case 'spotify-this-song':
+    songName = process.argv[3];
+    spotifyThis(songName);
 
     break;
   case 'movie-this':
@@ -62,7 +66,70 @@ switch (param) {
 // * `do-what-it-says`
 
 // We then run the request module on a URL with a JSON
+function spotifyThis(name){
+    // if no song is provided
+    if (name == null) {
+      name =  'The Sign';
+    }
 
+    console.log(name);
+
+
+// spotify
+//   .search({ type: 'track', query: name, limit: '1' })
+//   .then(function(response) {
+//     console.log(response.tracks);
+//   })
+//   .catch(function(err) {
+//     console.log(err);
+//   });
+
+spotify.search({ type: 'track', query: name }, function(err, data) {
+  if (err) {
+    return console.log('Error occurred: ' + err);
+  }
+ 
+console.log(data.tracks); 
+});
+
+
+
+
+// spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+//   if (err) {
+//     return console.log('Error occurred: ' + err);
+//   }
+
+// console.log(data); 
+// });
+
+// Artist(s)
+// The song's name
+// A preview link of the song from Spotify
+// The album that the song is from
+
+// spotify.search({ type: 'track', query: name, limit: 1}, function(err, data) {
+//   if (err) {
+//     return console.log('Error occurred: ' + err);
+//   }
+ 
+// console.log(data); 
+// });
+
+
+
+
+
+  // spotify.search({ type: 'track', query: 'All the small things'}, function(err, data) {
+  // if (err) {
+  //   return console.log('Error occurred: ' + err);
+  // }
+
+  // console.log(data); 
+  // });
+
+
+}
 
 function movieThis(name){
   var queryUrl = "http://www.omdbapi.com/?t=" + name + "&y=&plot=short&apikey=trilogy";
@@ -74,23 +141,45 @@ function movieThis(name){
       console.log("--------------------------------");
       console.log(colors.BgCyan);
 
-      console.log("Title: "+JSON.parse(body).Title);
+      var movieResponse = JSON.parse(body);
+      var posterURL = movieResponse.Poster;
 
-      console.log("Year released: "+JSON.parse(body).Year);
-      console.log("IMDB Rating: "+JSON.parse(body).imdbRating);
-      console.log("Rotten Tomatoes Rating: "+JSON.parse(body).Ratings[1].Value);
+      imageToAscii(posterURL, {
+        colored: true,
+        size: {
+          height: 50
+        }
+      }, (err, converted) => {
+        console.log(err || converted);
+      });
 
-      console.log(JSON.parse(body).Country);
-      console.log(JSON.parse(body).Language);
-      console.log(JSON.parse(body).Plot);
-      console.log(JSON.parse(body).Actors); 
+      console.log("Title: "+movieResponse.Title);
+
+      console.log("Year released: "+movieResponse.Year);
+      console.log("IMDB Rating: "+movieResponse.imdbRating);
+
+      console.log("Rotten Tomatoes Rating: "+movieResponse.Ratings);
+
+      console.log(movieResponse.Country);
+      console.log(movieResponse.Language);
+      console.log(movieResponse.Plot);
+      console.log(movieResponse.Actors); 
+
+
+
 
       console.log(colors.Reset);
+
+
+
+
       console.log("--------------------------------");
     }
 
   });
 }
+
+
 
 
 function logo() {
