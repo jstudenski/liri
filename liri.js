@@ -15,6 +15,12 @@ var client = new Twitter(keys.twitter);
 var param = process.argv[2];
 switch (param) {
   case 'help':
+
+
+    console.log(logo());
+    
+
+
     console.log(colors.FgGreen+'Options:'+colors.Reset);
     console.log('  my-tweets');  
     console.log(colors.Dim+'  This will show your last 20 tweets and when they were created'+colors.Reset); 
@@ -87,3 +93,16 @@ function movieThis(name){
 }
 
 
+function logo() {
+  var color1 = colors.FgMagenta;
+  var color2 = colors.FgRed;
+  var color3 = colors.FgYellow;
+  var color4 = colors.FgCyan;
+  return  color1+' ___ '+color2+'      ___ '+color3+' ________ '+color4+' ___  '+ '\n' +    
+          color1+'|\\  \\  '+color2+'   |\\  \\'+color3+'|\\   __  \\'+color4+'|\\  \\ '+ '\n' +    
+          color1+'\\ \\  \\ '+color2+'   \\ \\  \\'+color3+' \\  \\|\\  \\ '+color4+'\\  \\  '+ '\n' +  
+          color1+' \\ \\  \\ '+color2+'   \\ \\  \\'+color3+' \\   _  _\\ '+color4+'\\  \\  '+ '\n' + 
+          color1+'  \\ \\  \\____'+color2+'\\ \\  \\ '+color3+'\\  \\\\  \\\\ '+color4+'\\  \\ '+ '\n' + 
+          color1+'   \\ \\_______\\'+color2+' \\__\\ '+color3+'\\__\\\\ _\\\\'+color4+' \\__\\ '+ '\n' + 
+          color1+'    \\|_______|'+color2+'\\|__|'+color3+'\\|__|\\|__|'+color4+'\\|__|'+colors.Reset;
+}
