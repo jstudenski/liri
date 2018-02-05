@@ -1,5 +1,5 @@
 # LIRI Bot
-<img src="liri.png" alt="alt text" width="200">
+<img src="logo.png" alt="alt text" width="200">
 
 
 
