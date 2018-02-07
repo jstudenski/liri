@@ -13,13 +13,14 @@ var client = new Twitter(keys.twitter);
 
 
 
-
-
 // default
 // var songName = 'The Sign'
 
 // get user input
+//var args = process.argv.slice(2).shift();
+
 var param = process.argv[2];
+
 switch (param) {
   case 'help':
     console.log(logo());
@@ -44,7 +45,9 @@ switch (param) {
     break;
   case 'movie-this':
     var movieName = process.argv[3];
+   // console.log(args);
     movieThis(movieName);
+
     break;
   case 'do-what-it-says':
 
@@ -138,8 +141,7 @@ function movieThis(name){
 
     // If there were no errors and the response code was 200 (i.e. the request was successful)...
     if (!error && response.statusCode === 200) {
-      console.log("--------------------------------");
-      console.log(colors.BgCyan);
+
 
       var movieResponse = JSON.parse(body);
       var posterURL = movieResponse.Poster;
@@ -151,7 +153,8 @@ function movieThis(name){
         }
       }, (err, converted) => {
         console.log(err || converted);
-      });
+
+      console.log(colors.BgCyan);
 
       console.log("Title: "+movieResponse.Title);
 
@@ -166,32 +169,28 @@ function movieThis(name){
       console.log(movieResponse.Actors); 
 
 
-
-
       console.log(colors.Reset);
 
 
+      });
 
 
-      console.log("--------------------------------");
     }
 
   });
 }
 
 
-
-
 function logo() {
   var color1 = colors.FgMagenta;
   var color2 = colors.FgRed;
   var color3 = colors.FgYellow;
-  var color4 = colors.FgCyan;
+  var color4 = colors.Test;
   return  color1+' ___ '+color2+'      ___ '+color3+' ________ '+color4+' ___  '+ '\n' +    
           color1+'|\\  \\  '+color2+'   |\\  \\'+color3+'|\\   __  \\'+color4+'|\\  \\ '+ '\n' +    
           color1+'\\ \\  \\ '+color2+'   \\ \\  \\'+color3+' \\  \\|\\  \\ '+color4+'\\  \\  '+ '\n' +  
           color1+' \\ \\  \\ '+color2+'   \\ \\  \\'+color3+' \\   _  _\\ '+color4+'\\  \\  '+ '\n' + 
-          color1+'  \\ \\  \\____'+color2+'\\ \\  \\ '+color3+'\\  \\\\  \\\\ '+color4+'\\  \\ '+ '\n' + 
-          color1+'   \\ \\_______\\'+color2+' \\__\\ '+color3+'\\__\\\\ _\\\\'+color4+' \\__\\ '+ '\n' + 
+          color1+'  \\ \\  \\____'+color2+'\\ \\  \\ '+color3+'\\  \\\\  \\'+color4+'\\ \\  \\ '+ '\n' + 
+          color1+'   \\ \\_______\\'+color2+' \\__\\ '+color3+'\\__\\\\ _\\'+color4+'\\ \\__\\ '+ '\n' + 
           color1+'    \\|_______|'+color2+'\\|__|'+color3+'\\|__|\\|__|'+color4+'\\|__|'+colors.Reset;
 }
