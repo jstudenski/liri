@@ -22,5 +22,9 @@ module.exports = {
   BgMagenta: "\x1b[45m",
   BgCyan: "\x1b[46m",
   BgWhite: "\x1b[47m",
-  Test: "\x1b[38;5;208m"
+  Test: "\x1b[38;5;219m",
+  Logo1: "\x1b[38;5;196m",
+  Logo2: "\x1b[38;5;203m",
+  Logo3: "\x1b[38;5;33m",
+  Logo4: "\x1b[38;5;214m",
 }
