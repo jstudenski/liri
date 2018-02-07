@@ -11,7 +11,7 @@ http://www.graphicsmagick.org/
 npm install 
 
 
-
+add .env file
 
 
 

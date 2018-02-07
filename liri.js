@@ -8,7 +8,7 @@ var fs = require('fs');
 var keys = require('./keys.js');
 var imageToAscii = require("image-to-ascii");
 var inquirer = require('inquirer');
-
+var stripAnsi = require('strip-ansi');
 
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
@@ -18,27 +18,52 @@ var client = new Twitter(keys.twitter);
 inquirer.prompt([
     {
       type: "list",
-      message: "Programs:",
+      message: "Program:",
       choices: [
-        "my-tweets"+colors.Dim+' This will show your last 20 tweets and when they were created'+colors.Reset,
-        "spotify-this-song"+colors.Dim+' This will show the various information about a song'+colors.Reset, 
-        "movie-this"+colors.Dim+' This will output various information about a movie'+colors.Reset,
-        "do-what-it-says"+colors.Dim+' This will call a command from inside of random.txt'+colors.Reset 
+        "\x1b[38;5;33mTwitter\x1b[0m",
+        "\x1b[38;5;76mSpotify\x1b[0m",
+        "\x1b[38;5;226mMovie\x1b[0m",
+        "\x1b[38;5;210mRead File\x1b[0m"
         ],
-      name: "username"
-    },
-    {
-      type: "input",
-      message: "What song?",
-      name: "song"
+      name: "choice",
+      filter: function (str){
+        return stripAnsi(str);
+      }
+
+    },{
+      name: 'twitterChoice',
+      message: 'Twitter Question?',
+      when: function(answers){
+        return answers.choice === 'Twitter';
+      }
+    }, {
+      name: 'songChoice',
+      message: 'What song?',
+      when: function(answers){
+        return answers.choice === 'Spotify';
+      }
+    }, {
+      name: 'movieChoice',
+      message: 'Pick Movie..',
+      when: function(answers){
+        return answers.choice === 'Movie';
     }
-  ])
+    }])
+
   .then(function(inquirerResponse) {
 
-      console.log("\nWelcome " + inquirerResponse.username);
-      console.log("Your " + inquirerResponse.confirm + " is ready for battle!\n");
+      console.log("Choice: " + inquirerResponse.choice);
+    //  console.log("Choice: " + inquirerResponse);
+
 
   });
+
+
+        // "my-tweets"+colors.Dim+' This will show your last 20 tweets and when they were created'+colors.Reset, "test",
+        // "spotify-this-song"+colors.Dim+' This will show the various information about a song'+colors.Reset, 
+        // "movie-this"+colors.Dim+' This will output various information about a movie'+colors.Reset,
+        // "do-what-it-says"+colors.Dim+' This will call a command from inside of random.txt'+colors.Reset 
+
 
 
 
