@@ -14,6 +14,25 @@ var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
 
 
+function logo() {
+  // get random color
+  var color1 = "\x1b[38;5;"+Math.floor((Math.random() * 250) + 1)+"m";
+  var color2 = "\x1b[38;5;"+Math.floor((Math.random() * 250) + 1)+"m";
+  var color3 = "\x1b[38;5;"+Math.floor((Math.random() * 250) + 1)+"m";
+  var color4 = "\x1b[38;5;"+Math.floor((Math.random() * 250) + 1)+"m";
+  // create logo
+  return(
+    color1+' ___ '+color2+'      ___ '+color3+' ________ '+color4+' ___  '+ '\n' +    
+    color1+'|\\  \\  '+color2+'   |\\  \\'+color3+'|\\   __  \\'+color4+'|\\  \\ '+ '\n' +    
+    color1+'\\ \\  \\ '+color2+'   \\ \\  \\'+color3+' \\  \\|\\  \\ '+color4+'\\  \\  '+ '\n' +  
+    color1+' \\ \\  \\ '+color2+'   \\ \\  \\'+color3+' \\   _  _\\ '+color4+'\\  \\  '+ '\n' + 
+    color1+'  \\ \\  \\____'+color2+'\\ \\  \\ '+color3+'\\  \\\\  \\'+color4+'\\ \\  \\ '+ '\n' + 
+    color1+'   \\ \\_______\\'+color2+' \\__\\ '+color3+'\\__\\\\ _\\'+color4+'\\ \\__\\ '+ '\n' + 
+    color1+'    \\|_______|'+color2+'\\|__|'+color3+'\\|__|\\|__|'+color4+'\\|__|'+colors.Reset
+  );
+}
+
+console.log(logo());
 
 inquirer.prompt([
     {
@@ -44,7 +63,7 @@ inquirer.prompt([
       }
     }, {
       name: 'movieChoice',
-      message: 'Pick Movie..',
+      message: 'Movie Title:',
       when: function(answers){
         return answers.choice === 'Movie';
     }
@@ -52,8 +71,25 @@ inquirer.prompt([
 
   .then(function(inquirerResponse) {
 
-      console.log("Choice: " + inquirerResponse.choice);
+    //console.log("Choice: " + inquirerResponse.choice);
     //  console.log("Choice: " + inquirerResponse);
+    var param = inquirerResponse.choice;
+    switch (param) {
+      case 'Twitter':
+        console.log(inquirerResponse.twitterChoice);
+        break;
+      case 'Spotify':
+        console.log(inquirerResponse.songChoice);
+        break;
+      case 'Movie':
+        movieThis(inquirerResponse.movieChoice)
+        //console.log(inquirerResponse.movieChoice);
+        break;
+      default:
+        console.log("Unhandled Case!");
+    }
+
+
 
 
   });
@@ -188,67 +224,57 @@ inquirer.prompt([
 
 // }
 
-// function movieThis(name){
-//   var queryUrl = "http://www.omdbapi.com/?t=" + name + "&y=&plot=short&apikey=trilogy";
+function movieThis(name){
+  var queryUrl = "http://www.omdbapi.com/?t=" + name + "&y=&plot=short&apikey=trilogy";
 
-//   request(queryUrl, function(error, response, body) {
+  request(queryUrl, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+    
+      var movieResponse = JSON.parse(body);
 
-//     // If there were no errors and the response code was 200 (i.e. the request was successful)...
-//     if (!error && response.statusCode === 200) {
+      if (movieResponse.Response === 'False'){
+        
+        console.log("\x1b[38;5;160m" + "Movie not found" + "\x1b[0m");
+
+      } else {
+
+        var movieResponse = JSON.parse(body);
+        
+        console.log("Title: "+movieResponse.Title);
+
+        console.log("Released: "+movieResponse.Year);
+        console.log("IMDB Rating: "+movieResponse.imdbRating);
+
+        for (var i = 0; i < movieResponse.Ratings.length; i++) {
+          if (movieResponse.Ratings[i].Source === 'Rotten Tomatoes') {
+            console.log("Rotten Tomatoes Rating: "+movieResponse.Ratings[i].Value);
+          }
+        }
+
+        // var posterURL = movieResponse.Poster;
+
+        // imageToAscii(posterURL, {
+        //   colored: true,       
+        //   size: {
+        //     height: 50
+        //   },
+        // }, (err, converted) => {
+        //   console.log(err || converted);
+
+        // });
+
+       // console.log(colors.BgCyan);
+
+      //  console.log("Rotten Tomatoes Rating: "+movieResponse.Ratings);
+
+        console.log(movieResponse.Country);
+        console.log(movieResponse.Language);
+        console.log(movieResponse.Plot);
+        console.log(movieResponse.Actors); 
+       // console.log(colors.Reset);
+      }
+    }
+  });
+}
 
 
-//       var movieResponse = JSON.parse(body);
-//       var posterURL = movieResponse.Poster;
-
-//       imageToAscii(posterURL, {
-//         colored: true,       
-//         size: {
-//           height: 50
-//         },
-//       }, (err, converted) => {
-//         console.log(err || converted);
-
-//       console.log(colors.BgCyan);
-
-//       console.log("Title: "+movieResponse.Title);
-
-//       console.log("Year released: "+movieResponse.Year);
-//       console.log("IMDB Rating: "+movieResponse.imdbRating);
-
-//       console.log("Rotten Tomatoes Rating: "+movieResponse.Ratings);
-
-//       console.log(movieResponse.Country);
-//       console.log(movieResponse.Language);
-//       console.log(movieResponse.Plot);
-//       console.log(movieResponse.Actors); 
-
-
-//       console.log(colors.Reset);
-
-
-//       });
-
-
-//     }
-
-//   });
-// }
-
-
-// function logo() {
-//   // get random color
-//   var color1 = "\x1b[38;5;"+Math.floor((Math.random() * 250) + 1)+"m";
-//   var color2 = "\x1b[38;5;"+Math.floor((Math.random() * 250) + 1)+"m";
-//   var color3 = "\x1b[38;5;"+Math.floor((Math.random() * 250) + 1)+"m";
-//   var color4 = "\x1b[38;5;"+Math.floor((Math.random() * 250) + 1)+"m";
-//   // create logo
-//   return(
-//     color1+' ___ '+color2+'      ___ '+color3+' ________ '+color4+' ___  '+ '\n' +    
-//     color1+'|\\  \\  '+color2+'   |\\  \\'+color3+'|\\   __  \\'+color4+'|\\  \\ '+ '\n' +    
-//     color1+'\\ \\  \\ '+color2+'   \\ \\  \\'+color3+' \\  \\|\\  \\ '+color4+'\\  \\  '+ '\n' +  
-//     color1+' \\ \\  \\ '+color2+'   \\ \\  \\'+color3+' \\   _  _\\ '+color4+'\\  \\  '+ '\n' + 
-//     color1+'  \\ \\  \\____'+color2+'\\ \\  \\ '+color3+'\\  \\\\  \\'+color4+'\\ \\  \\ '+ '\n' + 
-//     color1+'   \\ \\_______\\'+color2+' \\__\\ '+color3+'\\__\\\\ _\\'+color4+'\\ \\__\\ '+ '\n' + 
-//     color1+'    \\|_______|'+color2+'\\|__|'+color3+'\\|__|\\|__|'+color4+'\\|__|'+colors.Reset
-//   );
-// }
