@@ -9,13 +9,17 @@ var keys = require('./keys.js');
 var imageToAscii = require("image-to-ascii");
 var inquirer = require('inquirer');
 var stripAnsi = require('strip-ansi');
+var clear = require('clear');
+
 
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
 
-console.log(keys.twitter)
+
+clear();
 
 function logo() {
+
   // get random color
   var color1 = "\x1b[38;5;"+Math.floor((Math.random() * 250) + 1)+"m";
   var color2 = "\x1b[38;5;"+Math.floor((Math.random() * 250) + 1)+"m";
