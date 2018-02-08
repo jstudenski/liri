@@ -51,19 +51,19 @@ inquirer.prompt([
       }
 
     },{
-      name: 'twitterChoice',
+      name: 'response',
       message: 'Twitter Question?',
       when: function(answers){
         return answers.choice === 'Twitter';
       }
     }, {
-      name: 'songChoice',
+      name: 'response',
       message: 'Song Name:',
       when: function(answers){
         return answers.choice === 'Spotify';
       }
     }, {
-      name: 'movieChoice',
+      name: 'response',
       message: 'Movie Title:',
       when: function(answers){
         return answers.choice === 'Movie';
@@ -71,24 +71,33 @@ inquirer.prompt([
     }])
 
   .then(function(inquirerResponse) {
+    var choice = inquirerResponse.choice;
+    var response = inquirerResponse.response;
 
-    //console.log("Choice: " + inquirerResponse.choice);
-    //  console.log("Choice: " + inquirerResponse);
-    var param = inquirerResponse.choice;
-    switch (param) {
+    // console.log("Choice: " + );
+    // console.log("Choice: " + );
+    //var param = inquirerResponse.choice;
+
+    choiceSwitch(choice, response);
+
+  });
+
+
+function choiceSwitch(choice, response) {
+
+    switch (choice) {
       case 'Twitter':
-        console.log(inquirerResponse.twitterChoice);
+        console.log(response);
         break;
       case 'Spotify':
-        spotifyThis(inquirerResponse.songChoice);
+        spotifyThis(response);
         break;
       case 'Movie':
-        movieThis(inquirerResponse.movieChoice)
-        //console.log(inquirerResponse.movieChoice);
+        movieThis(response)
         break;
-      case 'Read File':     
-        //movieThis(inquirerResponse.movieChoice)
-        console.log("reading file 'random.txt'");
+      case 'Read File':
+        readFile();
+
         break;
 
       default:
@@ -96,13 +105,34 @@ inquirer.prompt([
     }
 
 
+}
 
+
+function readFile() {
+  console.log("reading file 'random.txt'");
+
+  fs.readFile("random.txt", "utf8", function(error, data) {
+
+    // If the code experiences any errors it will log the error to the console.
+    if (error) {
+      return console.log(error);
+    }
+
+    // We will then print the contents of data
+    console.log(data);
+
+    // Then split it by commas (to make it more readable)
+    var dataArr = data.split(",");
+
+    // We will then re-display the content as an array for later use.
+    console.log(dataArr);
 
   });
 
 
 
 
+}
 
 
 var song = function(artist, song, album, preview) {
@@ -165,6 +195,7 @@ spotify.search({ type: 'track', query: name, limit: '10'}, function(err, data) {
         console.log("Artists: "+songArray[i].artist);
         console.log("Album: "+songArray[i].album);
         console.log("Preview Link: "+"\x1b[38;5;4m"+ songArray[i].preview +"\x1b[0m");
+        break; // only return once song
       }
     }
 
