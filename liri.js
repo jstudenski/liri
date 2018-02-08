@@ -57,7 +57,7 @@ inquirer.prompt([
       }
     }, {
       name: 'songChoice',
-      message: 'What song?',
+      message: 'Song Name:',
       when: function(answers){
         return answers.choice === 'Spotify';
       }
@@ -79,7 +79,7 @@ inquirer.prompt([
         console.log(inquirerResponse.twitterChoice);
         break;
       case 'Spotify':
-        console.log(inquirerResponse.songChoice);
+        spotifyThis(inquirerResponse.songChoice);
         break;
       case 'Movie':
         movieThis(inquirerResponse.movieChoice)
@@ -159,32 +159,35 @@ inquirer.prompt([
 // // * `do-what-it-says`
 
 // // We then run the request module on a URL with a JSON
-// function spotifyThis(name){
-//     // if no song is provided
-//     if (name == null) {
-//       name =  'The Sign';
-//     }
 
-//     console.log(name);
+function spotifyThis(name) {
+    // if no song is provided
+    if (name == "") {
+      name = 'The Sign';
+      console.log("\x1b[38;5;160m" + "You didn\'t pick a song." + "\x1b[0m");  
+      console.log("lets use: "+ name);
+    }
 
 
-// // spotify
-// //   .search({ type: 'track', query: name, limit: '1' })
-// //   .then(function(response) {
-// //     console.log(response.tracks);
-// //   })
-// //   .catch(function(err) {
-// //     console.log(err);
-// //   });
 
-// spotify.search({ type: 'track', query: name }, function(err, data) {
-//   if (err) {
-//     return console.log('Error occurred: ' + err);
-//   }
- 
-// console.log(data.tracks); 
-// });
+// spotify
+//   .search({ type: 'track', query: name, limit: '1' })
+//   .then(function(response) {
+//     console.log(response.tracks);
+//   })
+//   .catch(function(err) {
+//     console.log(err);
+//   });
 
+  // spotify.search({ type: 'track', query: name }, function(err, data) {
+  //   if (err) {
+  //     return console.log('Error occurred: ' + err);
+  //   }
+   
+  // console.log(data.tracks); 
+  // });
+
+}
 
 
 
@@ -233,7 +236,7 @@ function movieThis(name){
       var movieResponse = JSON.parse(body);
 
       if (movieResponse.Response === 'False'){
-        
+
         console.log("\x1b[38;5;160m" + "Movie not found" + "\x1b[0m");
 
       } else {
