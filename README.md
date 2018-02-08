@@ -1,20 +1,23 @@
 # LIRI Bot
 <img src="logo.png" alt="alt text" width="200">
 
-Install graphicsmagick:
+
+### Installation
+------
+Install graphicsmagick
 mac:
-brew install graphicsmagick
-http://www.graphicsmagick.org/
-
-
-
-npm install 
-
-
-add .env file
-
+``` 
+$ brew install graphicsmagick
 ```
 
+http://www.graphicsmagick.org/
+
+Install dependencies
+``` $ npm install```
+
+Create .env file with Spotify and Twitter API keys
+
+```
 # Spotify API keys
 
 SPOTIFY_ID=your-spotify-id
