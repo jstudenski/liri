@@ -39,6 +39,7 @@ function logo() {
 
 console.log(logo());
 
+function mainMenu(){
 inquirer.prompt([
     {
       type: "list",
@@ -80,7 +81,9 @@ inquirer.prompt([
     var response = inquirerResponse.response;
     choiceSwitch(choice, response);
   });
+}
 
+mainMenu();
 
 function choiceSwitch(choice, response) {
   switch (choice) {
@@ -218,8 +221,10 @@ function movieThis(name){
 
   if (name == "") {
     name = 'Mr. Nobody';
-    console.log("\x1b[38;5;160m" + "You didn\'t pick a movie." + "\x1b[0m");  
-    console.log("\x1b[38;5;214m" + "lets use: " + "\x1b[0m" + "\x1b[38;5;76m"+ name +"\x1b[0m");
+    colorText(160, "You didn\'t pick a movie.");
+    colorText(214, "lets use: "+name);
+
+   // console.log("\x1b[38;5;214m" + "lets use: " + "\x1b[0m" + "\x1b[38;5;76m"+ name +"\x1b[0m");
   }
 
   var queryUrl = "http://www.omdbapi.com/?t=" + name + "&y=&plot=short&apikey=trilogy";
@@ -231,13 +236,14 @@ function movieThis(name){
 
       if (movieResponse.Response === 'False'){
 
-        console.log("\x1b[38;5;160m" + "Movie not found" + "\x1b[0m");
+        colorText(160, "Movie not found");
 
       } else {
 
         // var movieResponse = JSON.parse(body);
+        colorText(226, "Title: "+movieResponse.Title);
         
-        console.log("Title: "+movieResponse.Title);
+       // console.log("Title: "+movieResponse.Title);
 
         console.log("Released: "+movieResponse.Year);
         console.log("IMDB Rating: "+movieResponse.imdbRating);
@@ -248,32 +254,44 @@ function movieThis(name){
           }
         }
 
-        // var posterURL = movieResponse.Poster;
-
-        // imageToAscii(posterURL, {
-        //   colored: true,       
-        //   size: {
-        //     height: 50
-        //   },
-        // }, (err, converted) => {
-        //   console.log(err || converted);
-
-        // });
-
-       // console.log(colors.BgCyan);
-
-      //  console.log("Rotten Tomatoes Rating: "+movieResponse.Ratings);
-
         console.log(movieResponse.Country);
         console.log(movieResponse.Language);
         console.log(movieResponse.Plot);
         console.log(movieResponse.Actors); 
 
 
-       // console.log(colors.Reset);
+
+          inquirer.prompt([
+            {
+              type: "confirm",
+              message: "Show movie poster?",
+              name: "confirm",
+              default: "true"
+            }])
+            .then(function(inquirerResponse) {
+
+              if (inquirerResponse.confirm){
+                imageToAscii(movieResponse.Poster, {
+                  colored: true,       
+                  size: {
+                    height: 50
+                  },
+                }, (err, converted) => {
+                  console.log(err || converted);
+                  mainMenu();
+                });
+              } else {
+                mainMenu();
+              }
+            });
+
       }
     }
   });
 }
 
+
+function colorText(num, text) {
+  console.log("\x1b[38;5;"+num+"m" + text + "\x1b[0m");
+}
 
