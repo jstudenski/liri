@@ -2,8 +2,7 @@
 <img src="logo.png" alt="alt text" width="200">
 
 
-### Installation
-------
+## Installation
 Install graphicsmagick
 mac:
 ` $ brew install graphicsmagick `
@@ -30,6 +29,5 @@ TWITTER_ACCESS_TOKEN_SECRET=your-twitter-access-token-secret
 
 ```
 
-### Usage
-------
+## Usage
 ` $ node liri.js `
