@@ -49,14 +49,15 @@ inquirer.prompt([
       filter: function (str){
         return stripAnsi(str);
       }
-
-    },{
+    },
+    {
       name: 'response',
-      message: 'Twitter Question?',
+      message: 'How many tweets? (1-20)',
       when: function(answers){
         return answers.choice === 'Twitter';
       }
-    }, {
+    },
+     {
       name: 'response',
       message: 'Song Name:',
       when: function(answers){
@@ -73,44 +74,55 @@ inquirer.prompt([
   .then(function(inquirerResponse) {
     var choice = inquirerResponse.choice;
     var response = inquirerResponse.response;
-
-    // console.log("Choice: " + );
-    // console.log("Choice: " + );
-    //var param = inquirerResponse.choice;
-
     choiceSwitch(choice, response);
-
   });
 
 
 function choiceSwitch(choice, response) {
-
-    switch (choice) {
-      case 'Twitter':
-        console.log(response);
-        break;
-      case 'Spotify':
-        spotifyThis(response);
-        break;
-      case 'Movie':
-        movieThis(response)
-        break;
-      case 'Read File':
-        readFile();
-
-        break;
-
-      default:
-        console.log("Unhandled Case!");
-    }
-
-
+  switch (choice) {
+    case 'Twitter':
+      twitter(response);
+     // console.log(response);
+      break;
+    case 'Spotify':
+      spotifyThis(response);
+      break;
+    case 'Movie':
+      movieThis(response)
+      break;
+    case 'Read File':
+      readFile();
+      break;
+    default:
+      console.log("Unhandled Case!");
+  }
 }
+
+
+
+function twitter(num) {
+
+  var params = { screen_name: 'jstudenski1', count: num };
+
+  client.get('statuses/user_timeline', params, function(error, tweets, response) {
+
+    if (!error) {
+      var data = []; //empty array to hold data
+      for (var i = 0; i < tweets.length; i++) {
+        console.log("\x1b[38;5;236m" + tweets[i].created_at + "\x1b[0m");
+        console.log(tweets[i].text);
+      }
+
+    }
+  });
+};
+
+
+
 
 
 function readFile() {
   //console.log("reading file 'random.txt'");
-
   fs.readFile("random.txt", "utf8", function(error, data) {
 
     if (error) {
@@ -119,12 +131,8 @@ function readFile() {
 
     var array = data.split(",");
     choiceSwitch(array[0], array[1])
-    
+
   });
-
-
-
-
 }
 
 
@@ -204,14 +212,11 @@ spotify.search({ type: 'track', query: name, limit: '10'}, function(err, data) {
 
 function movieThis(name){
 
-
   if (name == "") {
     name = 'Mr. Nobody';
     console.log("\x1b[38;5;160m" + "You didn\'t pick a movie." + "\x1b[0m");  
     console.log("\x1b[38;5;214m" + "lets use: " + "\x1b[0m" + "\x1b[38;5;76m"+ name +"\x1b[0m");
   }
-
-
 
   var queryUrl = "http://www.omdbapi.com/?t=" + name + "&y=&plot=short&apikey=trilogy";
 
@@ -259,6 +264,8 @@ function movieThis(name){
         console.log(movieResponse.Language);
         console.log(movieResponse.Plot);
         console.log(movieResponse.Actors); 
+
+
        // console.log(colors.Reset);
       }
     }
