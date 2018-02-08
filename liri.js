@@ -13,6 +13,7 @@ var stripAnsi = require('strip-ansi');
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
 
+console.log(keys.twitter)
 
 function logo() {
   // get random color
@@ -85,6 +86,11 @@ inquirer.prompt([
         movieThis(inquirerResponse.movieChoice)
         //console.log(inquirerResponse.movieChoice);
         break;
+      case 'Read File':     
+        //movieThis(inquirerResponse.movieChoice)
+        console.log("reading file 'random.txt'");
+        break;
+
       default:
         console.log("Unhandled Case!");
     }
@@ -95,70 +101,9 @@ inquirer.prompt([
   });
 
 
-        // "my-tweets"+colors.Dim+' This will show your last 20 tweets and when they were created'+colors.Reset, "test",
-        // "spotify-this-song"+colors.Dim+' This will show the various information about a song'+colors.Reset, 
-        // "movie-this"+colors.Dim+' This will output various information about a movie'+colors.Reset,
-        // "do-what-it-says"+colors.Dim+' This will call a command from inside of random.txt'+colors.Reset 
 
 
 
-
-// // default
-// // var songName = 'The Sign'
-
-// // get user input
-// //var args = process.argv.slice(2).shift();
-
-// var param = process.argv[2];
-
-// switch (param) {
-//   case 'help':
-//     console.log(logo());
-//     console.log(colors.FgGreen+'Options:'+colors.Reset);
-//     console.log('  my-tweets');  
-//     console.log(colors.Dim+'  This will show your last 20 tweets and when they were created'+colors.Reset); 
-//     console.log('  spotify-this-song \'<song name here>\'');  
-//     console.log(colors.Dim+'  This will show the various information about a song'+colors.Reset); 
-//     console.log('  movie-this \'<movie name here>\'');
-//     console.log(colors.Dim+'  This will output various information about a movie'+colors.Reset);     
-//     console.log('  do-what-it-says');  
-//     console.log(colors.Dim+'  This will call a command from inside of random.txt'+colors.Reset);  
-//     break;
-//   case 'my-tweets':
-
-
-//     break;
-//   case 'spotify-this-song':
-//     songName = process.argv[3];
-//     spotifyThis(songName);
-
-//     break;
-//   case 'movie-this':
-//     var movieName = process.argv[3];
-//    // console.log(args);
-//     movieThis(movieName);
-
-//     break;
-//   case 'do-what-it-says':
-
-//     break;
-//   default:
-//     console.log(colors.FgRed+'Invalid parameter:'+colors.Reset);
-//     console.log('Try: \'node liri.js help\' to see avaliable options.');    
-// }
-
-// //console.log(result)
-
-
-// // * `my-tweets`
-
-// // * `spotify-this-song`
-
-// // * `movie-this`
-
-// // * `do-what-it-says`
-
-// // We then run the request module on a URL with a JSON
 
 var song = function(artist, song, album, preview) {
   this.artist = artist;
@@ -205,7 +150,7 @@ spotify.search({ type: 'track', query: name, limit: '10'}, function(err, data) {
   inquirer.prompt([
     {
       type: "list",
-      message: "Pick Song:",
+      message: "Song:",
       choices: titleArray,
       name: "choice",
       filter: function (str){
@@ -216,10 +161,10 @@ spotify.search({ type: 'track', query: name, limit: '10'}, function(err, data) {
 
     for (var i = 0; i < songResponse.length; i++) {
       if (songArray[i].song === inquirerResponse.choice) {
-        console.log("Song: "+ songArray[i].song);
+     // console.log("Song: "+ songArray[i].song);
         console.log("Artists: "+songArray[i].artist);
         console.log("Album: "+songArray[i].album);
-        console.log("Preview Link: "+songArray[i].preview);        
+        console.log("Preview Link: "+"\x1b[38;5;4m"+ songArray[i].preview +"\x1b[0m");
       }
     }
 
@@ -232,42 +177,6 @@ spotify.search({ type: 'track', query: name, limit: '10'}, function(err, data) {
 }
 
 
-
-// // spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-// //   if (err) {
-// //     return console.log('Error occurred: ' + err);
-// //   }
-
-// // console.log(data); 
-// // });
-
-// // Artist(s)
-// // The song's name
-// // A preview link of the song from Spotify
-// // The album that the song is from
-
-// // spotify.search({ type: 'track', query: name, limit: 1}, function(err, data) {
-// //   if (err) {
-// //     return console.log('Error occurred: ' + err);
-// //   }
- 
-// // console.log(data); 
-// // });
-
-
-
-
-
-//   // spotify.search({ type: 'track', query: 'All the small things'}, function(err, data) {
-//   // if (err) {
-//   //   return console.log('Error occurred: ' + err);
-//   // }
-
-//   // console.log(data); 
-//   // });
-
-
-// }
 
 function movieThis(name){
 
