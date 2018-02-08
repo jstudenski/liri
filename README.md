@@ -1,10 +1,10 @@
-# LIRI Bot
+# LIRI
 <img src="logo.png" alt="alt text" width="200">
 
 
 ## Installation
-Install graphicsmagick
-mac:
+Install graphicsmagick  
+mac:  
 ` $ brew install graphicsmagick `
 
 http://www.graphicsmagick.org/
