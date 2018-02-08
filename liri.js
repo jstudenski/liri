@@ -160,32 +160,74 @@ inquirer.prompt([
 
 // // We then run the request module on a URL with a JSON
 
+var song = function(artist, song, album, preview) {
+  this.artist = artist;
+  this.song = song;
+  this.album = album;
+  this.preview = preview;  
+}
+
 function spotifyThis(name) {
     // if no song is provided
     if (name == "") {
       name = 'The Sign';
       console.log("\x1b[38;5;160m" + "You didn\'t pick a song." + "\x1b[0m");  
-      console.log("lets use: "+ name);
+      console.log("\x1b[38;5;214m" + "lets use: " + "\x1b[0m" + "\x1b[38;5;76m"+ name +"\x1b[0m");
     }
 
 
+spotify.search({ type: 'track', query: name, limit: '10'}, function(err, data) {
+  if (err) {
+    return console.log('Error occurred: ' + err);
+  }
+ 
+  var songResponse = data.tracks.items;
 
-// spotify
-//   .search({ type: 'track', query: name, limit: '1' })
-//   .then(function(response) {
-//     console.log(response.tracks);
-//   })
-//   .catch(function(err) {
-//     console.log(err);
-//   });
+  var songArray = []
+  var titleArray = []
 
-  // spotify.search({ type: 'track', query: name }, function(err, data) {
-  //   if (err) {
-  //     return console.log('Error occurred: ' + err);
-  //   }
-   
-  // console.log(data.tracks); 
-  // });
+  for (var i = 0; i < songResponse.length; i++) {
+    if (songResponse[i] != undefined) {
+
+        var newSong = new song(
+        songResponse[i].artists[0].name,
+        songResponse[i].name,
+        songResponse[i].album.name,
+        songResponse[i].preview_url);
+  
+        songArray.push(newSong);
+
+        titleArray.push(songResponse[i].name);
+
+    }
+  }
+
+  inquirer.prompt([
+    {
+      type: "list",
+      message: "Pick Song:",
+      choices: titleArray,
+      name: "choice",
+      filter: function (str){
+        return stripAnsi(str);
+      }
+    }])
+  .then(function(inquirerResponse) {
+
+    for (var i = 0; i < songResponse.length; i++) {
+      if (songArray[i].song === inquirerResponse.choice) {
+        console.log("Song: "+ songArray[i].song);
+        console.log("Artists: "+songArray[i].artist);
+        console.log("Album: "+songArray[i].album);
+        console.log("Preview Link: "+songArray[i].preview);        
+      }
+    }
+
+  });
+
+
+
+});
 
 }
 
@@ -228,6 +270,16 @@ function spotifyThis(name) {
 // }
 
 function movieThis(name){
+
+
+  if (name == "") {
+    name = 'Mr. Nobody';
+    console.log("\x1b[38;5;160m" + "You didn\'t pick a movie." + "\x1b[0m");  
+    console.log("\x1b[38;5;214m" + "lets use: " + "\x1b[0m" + "\x1b[38;5;76m"+ name +"\x1b[0m");
+  }
+
+
+
   var queryUrl = "http://www.omdbapi.com/?t=" + name + "&y=&plot=short&apikey=trilogy";
 
   request(queryUrl, function(error, response, body) {
