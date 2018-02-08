@@ -6,14 +6,12 @@
 ------
 Install graphicsmagick
 mac:
-``` 
-$ brew install graphicsmagick
-```
+` $ brew install graphicsmagick `
 
 http://www.graphicsmagick.org/
 
 Install dependencies
-``` $ npm install```
+` $ npm install `
 
 Create .env file with Spotify and Twitter API keys
 
@@ -31,3 +29,7 @@ TWITTER_ACCESS_TOKEN_KEY=your-access-token-key
 TWITTER_ACCESS_TOKEN_SECRET=your-twitter-access-token-secret
 
 ```
+
+### Usage
+------
+` $ node liri.js `
