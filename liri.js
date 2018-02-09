@@ -259,8 +259,11 @@ function movieThis(name){
 
         console.log(movieResponse.Country);
         console.log(movieResponse.Language);
-        console.log(movieResponse.Plot);
-        console.log(movieResponse.Actors); 
+
+        colorText(122, movieResponse.Plot)
+        colorText(105, movieResponse.Actors)
+       // console.log(movieResponse.Plot);
+       // console.log(); 
 
 
           inquirer.prompt([
