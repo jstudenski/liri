@@ -108,6 +108,8 @@ function choiceSwitch(choice, response) {
 
 
 function twitter(num) {
+  
+  console.log("\x1b[38;5;214m" + "Displaying tweets from: " + "\x1b[0m" + "\x1b[38;5;76m"+ "jstudenski1" +"\x1b[0m");
 
   var params = { screen_name: 'jstudenski1', count: num };
 
@@ -116,14 +118,15 @@ function twitter(num) {
     if (!error) {
       var data = []; //empty array to hold data
       for (var i = 0; i < tweets.length; i++) {
-        console.log("\x1b[38;5;236m" + tweets[i].created_at + "\x1b[0m");
+        colorText(236, tweets[i].created_at);
         console.log(tweets[i].text);
       }
 
     }
+    mainMenu();
   });
-};
 
+};
 
 
 
@@ -258,7 +261,6 @@ function movieThis(name){
         console.log(movieResponse.Language);
         console.log(movieResponse.Plot);
         console.log(movieResponse.Actors); 
-
 
 
           inquirer.prompt([
