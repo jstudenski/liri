@@ -151,12 +151,12 @@ var song = function(artist, song, album, preview) {
 }
 
 function spotifyThis(name) {
-    // if no song is provided
-    if (name == "") {
-      name = 'The Sign';
-      console.log("\x1b[38;5;160m" + "You didn\'t pick a song." + "\x1b[0m");  
-      console.log("\x1b[38;5;214m" + "lets use: " + "\x1b[0m" + "\x1b[38;5;76m"+ name +"\x1b[0m");
-    }
+  // if no song is provided
+  if (name == "") {
+    name = 'The Sign';
+    colorText(160, "You didn\'t pick a song."); 
+    console.log("\x1b[38;5;214m" + "lets use: " + "\x1b[0m" + "\x1b[38;5;76m"+ name +"\x1b[0m");
+  }
 
 
 spotify.search({ type: 'track', query: name, limit: '10'}, function(err, data) {
@@ -206,7 +206,7 @@ spotify.search({ type: 'track', query: name, limit: '10'}, function(err, data) {
         break; // only return once song
       }
     }
-
+  mainMenu();
   });
 
 
@@ -237,7 +237,7 @@ function movieThis(name){
       if (movieResponse.Response === 'False'){
 
         colorText(160, "Movie not found");
-
+        mainMenu();
       } else {
 
         // var movieResponse = JSON.parse(body);
