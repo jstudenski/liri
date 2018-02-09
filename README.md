@@ -1,6 +1,6 @@
 
 # LIRI
-<img src="logo.png" alt="alt text" width="200">
+<img src="logo.png" alt="logo" width="200">
 LIRI is a Language Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data.
 
 ## Installation
@@ -31,3 +31,6 @@ TWITTER_ACCESS_TOKEN_SECRET=your-twitter-access-token-secret
 ```
 ## Usage
 `$ node liri.js`
+
+<img src="example1.png" alt="example 1" width="600">
+<img src="example2.png" alt="example 2" width="600">
