@@ -1,6 +1,7 @@
 var Letter = require("./Letter.js");
 
 var Word = function(word){
+  this.guessRemain = 10;
   this.letters = [];
   for (var x = 0; x < word.length; x++){
     this.letters.push(new Letter(word.charAt(x)));
@@ -18,16 +19,5 @@ var Word = function(word){
     }
   }
 }
-
-var myWord = new Word('test');
-
-console.log(myWord.letters);
-
-myWord.display();
-myWord.guess('t');
-myWord.display();
-myWord.guess('s');
-myWord.display();
-
 
 module.exports = Word;
