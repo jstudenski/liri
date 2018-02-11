@@ -48,7 +48,8 @@ inquirer.prompt([
         "\x1b[38;5;33mTwitter\x1b[0m",
         "\x1b[38;5;76mSpotify\x1b[0m",
         "\x1b[38;5;226mMovie\x1b[0m",
-        "\x1b[38;5;210mRead File\x1b[0m"
+        "\x1b[38;5;210mRead File\x1b[0m",
+        "\x1b[38;5;210mWeather\x1b[0m"
         ],
       name: "choice",
       filter: function (str){
