@@ -32,5 +32,5 @@ TWITTER_ACCESS_TOKEN_SECRET=your-twitter-access-token-secret
 ## Usage
 `$ node liri.js`
 
-<img src="example1.png" alt="example 1" width="600">
-<img src="example2.png" alt="example 2" width="600">
+<img src="readme/example1.png" alt="example 1" width="600">
+<img src="readme/example2.png" alt="example 2" width="600">
