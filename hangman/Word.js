@@ -5,12 +5,14 @@ var Word = function(word){
   for (var x = 0; x < word.length; x++){
     this.letters.push(new Letter(word.charAt(x)));
   };
-  this.userDisplay = function(){
+  this.display = function(){
+    var show = ""
     for (var x = 0; x < this.letters.length; x++){
-      this.letters[x].output();
+      show = show.concat(this.letters[x]+' ')
     }
+    console.log(show);
   };
-  this.guessLetter = function(char){
+  this.guess = function(char){
     for (var x = 0; x < this.letters.length; x++){
       this.letters[x].makeGuess(char);
     }
@@ -21,11 +23,11 @@ var myWord = new Word('test');
 
 console.log(myWord.letters);
 
-myWord.userDisplay();
-myWord.guessLetter('t');
-myWord.userDisplay();
-myWord.guessLetter('s');
-myWord.userDisplay();
-//console.log()
+myWord.display();
+myWord.guess('t');
+myWord.display();
+myWord.guess('s');
+myWord.display();
+
 
 module.exports = Word;
