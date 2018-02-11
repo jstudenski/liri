@@ -33,6 +33,13 @@ function guessLetter(){
   ]).then(function(inquirerResponse) {
       var guess = inquirerResponse.guess;
       console.log('Your guess was.. '+guess);
+
+      // console.log(myWord.letters[0].letter);
+
+      // indexOf(guess)
+
+      
+
       myWord.guess(guess);
       myWord.display();
       console.log(myWord.guessRemain);
