@@ -12,7 +12,7 @@ Letter.prototype.toString = function() {
 }
 
 Letter.prototype.makeGuess = function(guess){
-  if (guess === this.letter){
+  if (guess === this.letter || " " === this.letter){
     this.guessed = true;
   }
 }

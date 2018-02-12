@@ -42,6 +42,8 @@ function guessLetter(){
 
       myWord.guess(guess);
       myWord.display();
+
+      console.log(myWord);
       console.log(myWord.guessRemain);
       guessLetter();
       // var choice = inquirerResponse.choice;
