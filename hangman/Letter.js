@@ -1,19 +1,17 @@
 var Letter = function(char){
   this.letter = char;
   this.guessed = false;
+  if (char === " ") this.guessed = true;
 }
 
 Letter.prototype.toString = function() {
-  if (this.guessed === true){
-    return this.letter;
-  } else {
-    return "_";
-  }
+  return(this.guessed === true) ? this.letter : "_";
 }
 
 Letter.prototype.makeGuess = function(guess){
-  if (guess === this.letter || " " === this.letter){
-    this.guessed = true;
+  if (guess === this.letter) {
+    this.guessed = true; 
+    return true;
   }
 }
 
