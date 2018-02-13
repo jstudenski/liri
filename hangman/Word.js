@@ -3,7 +3,7 @@ var Letter = require("./Letter.js");
 var Word = function(word){
   this.letters = [];
   for (var x = 0; x < word.length; x++){
-    this.letters.push(new Letter(word.charAt(x)));
+    this.letters.push(new Letter(word.charAt(x).toUpperCase()));
   };
 }
 

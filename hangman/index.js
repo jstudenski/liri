@@ -36,12 +36,16 @@ function guessLetter(){
       console.log('Your guess was.. '+guess);
 
       // console.log(myWord.letters[0].letter);
-
+myGame.guess(guess)
       // indexOf(guess)
-      console.log(myGame.guess(guess));
-      console.log(myGame);
-      console.log(myGame.word);
-      myGame.word.display();
+     // console.log(myGame.guess(guess));
+
+
+    //  console.log(myGame);
+    //  console.log(myGame.word);
+
+
+    //  myGame.word.display();
       // myWord.guess(guess);
       // myWord.display();
 
