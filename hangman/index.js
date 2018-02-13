@@ -33,7 +33,7 @@ function guessLetter(){
     }
   ]).then(function(inquirerResponse) {
       var guess = inquirerResponse.guess.toUpperCase();
-      console.log('Your guess was.. '+guess);
+      //console.log('Your guess was.. '+guess);
 
       // console.log(myWord.letters[0].letter);
 myGame.guess(guess)
