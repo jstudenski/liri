@@ -12,9 +12,8 @@ var Game = function(){ //word
 
 Game.prototype.logIncorrect = function() {
   if (this.incorrect != "") {
-
-  color("orange","Incorrect Guesses: ");
-  console.log(this.incorrect.join(" "));
+    color("yellow","Incorrect Guesses: ");
+    console.log(this.incorrect.join(" ")+"\n");
   }
 }
 
@@ -24,25 +23,21 @@ Game.prototype.guess = function(char) {
 clear();
 
   if (this.guessed.indexOf(char) > -1) {
-    console.log("Letter has already been guessed: "+char);
+    color("pink", char+" has already been guessed\n");
   } else {
     this.guessed.push(char);
     if (this.word.guess(char)){
-      color("green", char+" was "+"CORRECT!!");
+      color("green", char+" was "+"CORRECT!!"+"\n");
     } else {
-      color("red", char+" was "+"INCORRECT!!");
+      color("red", char+" was "+"INCORRECT!!"+"\n");
       this.incorrect.push(char);
       this.guessRemain--;
     };
-
-    this.word.display();
-    console.log(this.guessRemain + " guesses remaining");
-   // color("red", "test");
-    this.logIncorrect();
-    console.log();
-   //  color("blue", "test");
   }
 
+  this.word.display();
+  color("orange","\n"+this.guessRemain + " guesses remaining"+"\n");
+  this.logIncorrect();
 
 }
 
