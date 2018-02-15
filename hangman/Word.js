@@ -23,4 +23,14 @@ Word.prototype.guess = function(char) {
   return found;
 }
 
+Word.prototype.checkWin = function() {
+  for (var x = 0; x < this.letters.length; x++){
+    if (this.letters[x].guessed === false) {
+      return false;
+    } 
+  }
+  return true
+}
+
+
 module.exports = Word;

@@ -1,6 +1,7 @@
 require("dotenv").config();
 
-var colors = require("./colors.js");
+
+var logo = require("./logo.js");
 var request = require("request");
 var Spotify = require("node-spotify-api");
 var Twitter = require("twitter");
@@ -10,32 +11,13 @@ var imageToAscii = require("image-to-ascii");
 var inquirer = require('inquirer');
 var stripAnsi = require('strip-ansi');
 var clear = require('clear');
+var hangman = require("./hangman/hangman.js");
 
 
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
 
-
 clear();
-
-function logo() {
-
-  // get random color
-  var color1 = "\x1b[38;5;"+Math.floor((Math.random() * 250) + 1)+"m";
-  var color2 = "\x1b[38;5;"+Math.floor((Math.random() * 250) + 1)+"m";
-  var color3 = "\x1b[38;5;"+Math.floor((Math.random() * 250) + 1)+"m";
-  var color4 = "\x1b[38;5;"+Math.floor((Math.random() * 250) + 1)+"m";
-  // create logo
-  return(
-    color1+' ___ '+color2+'      ___ '+color3+' ________ '+color4+' ___  '+ '\n' +    
-    color1+'|\\  \\  '+color2+'   |\\  \\'+color3+'|\\   __  \\'+color4+'|\\  \\ '+ '\n' +    
-    color1+'\\ \\  \\ '+color2+'   \\ \\  \\'+color3+' \\  \\|\\  \\ '+color4+'\\  \\  '+ '\n' +  
-    color1+' \\ \\  \\ '+color2+'   \\ \\  \\'+color3+' \\   _  _\\ '+color4+'\\  \\  '+ '\n' + 
-    color1+'  \\ \\  \\____'+color2+'\\ \\  \\ '+color3+'\\  \\\\  \\'+color4+'\\ \\  \\ '+ '\n' + 
-    color1+'   \\ \\_______\\'+color2+' \\__\\ '+color3+'\\__\\\\ _\\'+color4+'\\ \\__\\ '+ '\n' + 
-    color1+'    \\|_______|'+color2+'\\|__|'+color3+'\\|__|\\|__|'+color4+'\\|__|'+colors.Reset
-  );
-}
 
 console.log(logo());
 
@@ -45,11 +27,12 @@ inquirer.prompt([
       type: "list",
       message: "Program:",
       choices: [
-        "\x1b[38;5;33mTwitter\x1b[0m",
-        "\x1b[38;5;76mSpotify\x1b[0m",
-        "\x1b[38;5;226mMovie\x1b[0m",
-        "\x1b[38;5;210mRead File\x1b[0m",
-        "\x1b[38;5;210mWeather\x1b[0m"
+        "\x1b[38;5;197mHangman\x1b[0m",
+        "\x1b[38;5;39mTwitter\x1b[0m",
+        "\x1b[38;5;46mSpotify\x1b[0m",
+        "\x1b[38;5;196mMovie\x1b[0m",
+        "\x1b[38;5;208mRead File\x1b[0m",
+        "\x1b[38;5;220mWeather\x1b[0m"
         ],
       name: "choice",
       filter: function (str){
@@ -88,9 +71,11 @@ mainMenu();
 
 function choiceSwitch(choice, response) {
   switch (choice) {
+    case 'Hangman':
+      hangman();
+      break;
     case 'Twitter':
       twitter(response);
-     // console.log(response);
       break;
     case 'Spotify':
       spotifyThis(response);
@@ -100,6 +85,10 @@ function choiceSwitch(choice, response) {
       break;
     case 'Read File':
       readFile();
+      break;
+    case 'Weather':
+      console.log("Feature Coming Soon");
+      mainMenu();
       break;
     default:
       console.log("Unhandled Case!");

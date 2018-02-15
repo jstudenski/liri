@@ -4,23 +4,15 @@ var color = require("../colors.js");
 
 
 var Game = function(){ //word
-  this.guessRemain = 10;
+  this.guessRemain = 8;
   this.guessed = [];
   this.incorrect = [];
   this.word = new Word('test three');
 }
 
-Game.prototype.logIncorrect = function() {
-  if (this.incorrect != "") {
-    color("yellow","Incorrect Guesses: ");
-    console.log(this.incorrect.join(" ")+"\n");
-  }
-}
-
-
 Game.prototype.guess = function(char) {
 
-clear();
+  clear();
 
   if (this.guessed.indexOf(char) > -1) {
     color("pink", char+" has already been guessed\n");
@@ -35,9 +27,32 @@ clear();
     };
   }
 
+
   this.word.display();
   color("orange","\n"+this.guessRemain + " guesses remaining"+"\n");
-  this.logIncorrect();
+  // log incorrect
+  if (this.incorrect != "") {
+    color("yellow","Incorrect Guesses: ");
+    console.log(this.incorrect.join(" ")+"\n");
+  }
+
+  if (this.word.checkWin()) {
+    clear();
+    color("green","you win!\n");
+    this.word.display();
+    console.log();
+    return true;
+  }
+
+  if (this.guessRemain === 0) {
+    clear();
+    color("red","you lose!\n");
+    this.word.display();
+    console.log();
+    return true;
+  }
+
+
 
 }
 
