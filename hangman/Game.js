@@ -7,7 +7,7 @@ var Game = function(){ //word
   this.guessRemain = 8;
   this.guessed = [];
   this.incorrect = [];
-  this.word = new Word('test three');
+  this.word = new Word('qwer');
 }
 
 Game.prototype.guess = function(char) {
@@ -51,8 +51,6 @@ Game.prototype.guess = function(char) {
     console.log();
     return true;
   }
-
-
 
 }
 

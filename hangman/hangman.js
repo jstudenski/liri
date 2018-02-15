@@ -2,17 +2,22 @@ var Word = require("./Word.js");
 var Game = require("./Game.js");
 var inquirer = require('inquirer');
 var clear = require('clear');
+var liri = require('../liri.js');
+
 
 var myGame = '';
 //var guessRemain = 0; 
 
+
+
+
 var newGame = function newGame(){
+
   clear();
   myGame = new Game();
   console.log("Good Luck!\n");
   myGame.word.display();
 
-  //guessRemain = 10;
   guessLetter();
 
 }
@@ -57,15 +62,14 @@ function endGameMenu(){
       name: "option"
     }
     ]).then(function(inquirerResponse) {
-
-
-      //console.log();
-      switch (inquirerResponse.choice) {
+      console.log(inquirerResponse.option);
+      switch (inquirerResponse.option) {
       case 'New Game':
         newGame();
         break;
       case 'Main Menu':
-        //twitter(response);
+        liri.mainMenu();
+       // mainMenu();
         break;
       default:
         console.log("Unhandled Case!");

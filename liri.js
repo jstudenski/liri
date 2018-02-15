@@ -21,7 +21,9 @@ clear();
 
 console.log(logo());
 
-function mainMenu(){
+var mainMenu = function(){
+
+//var mainMenu = function(){
 inquirer.prompt([
     {
       type: "list",
@@ -66,6 +68,20 @@ inquirer.prompt([
     choiceSwitch(choice, response);
   });
 }
+
+
+var methods = {
+  timestamp: function() {
+    console.log('Current Time in Unix Timestamp: ' + Math.floor(Date.now() / 1000));
+  },
+  currentDate: function() {
+    console.log('Current Date is: ' + new Date().toISOString().slice(0, 10));
+  }
+};
+exports.data = methods;
+
+module.exports.mainMenu = mainMenu;
+
 
 mainMenu();
 
@@ -209,7 +225,6 @@ spotify.search({ type: 'track', query: name, limit: '10'}, function(err, data) {
 }
 
 
-
 function movieThis(name){
 
   if (name == "") {
@@ -289,4 +304,6 @@ function movieThis(name){
 function colorText(num, text) {
   console.log("\x1b[38;5;"+num+"m" + text + "\x1b[0m");
 }
+
+
 
