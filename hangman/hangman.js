@@ -69,7 +69,6 @@ function endGameMenu(){
         break;
       case 'Main Menu':
         liri.mainMenu();
-       // mainMenu();
         break;
       default:
         console.log("Unhandled Case!");
