@@ -1,7 +1,7 @@
 
 # LIRI
 <img src="logo.png" alt="logo" width="200">
-LIRI is a Language Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data.
+LIRI is a Language Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data. Or play hangman!
 
 ## Installation
 ##### Install graphicsmagick
