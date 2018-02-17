@@ -3,7 +3,7 @@ var Game = require("./Game.js");
 var inquirer = require('inquirer');
 var clear = require('clear');
 var liri = require('../liri.js');
-
+var fs = require("fs");
 
 var myGame = '';
 //var guessRemain = 0; 
@@ -11,15 +11,24 @@ var myGame = '';
 
 
 
+
 var newGame = function newGame(){
-
   clear();
-  myGame = new Game();
-  console.log("Good Luck!\n");
-  myGame.word.display();
 
-  guessLetter();
+  fs.readFile("hangman/words.txt", "utf8", function(err, data) {
+    if (err) return err;
+      
+      var split = data.split("\n");
+      //var randomWord = 
 
+      myGame = new Game(split[Math.floor(Math.random()*split.length)]);
+
+      console.log("Guess a State Capital, Good Luck!\n");
+      myGame.word.display();
+
+      guessLetter();
+
+    });
 }
 
 function guessLetter(){

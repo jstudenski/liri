@@ -3,11 +3,11 @@ var clear = require('clear');
 var color = require("../colors.js");
 
 
-var Game = function(){ //word
+var Game = function(word){ //word
   this.guessRemain = 8;
   this.guessed = [];
   this.incorrect = [];
-  this.word = new Word('qwer');
+  this.word = new Word(word);
 }
 
 Game.prototype.guess = function(char) {
