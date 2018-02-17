@@ -6,10 +6,6 @@ var liri = require('../liri.js');
 var fs = require("fs");
 
 var myGame = '';
-//var guessRemain = 0; 
-
-
-
 
 
 var newGame = function newGame(){
@@ -17,16 +13,15 @@ var newGame = function newGame(){
 
   fs.readFile("hangman/words.txt", "utf8", function(err, data) {
     if (err) return err;
-      
-      var split = data.split("\n");
-      //var randomWord = 
+    
+    var split = data.split("\n");
 
-      myGame = new Game(split[Math.floor(Math.random()*split.length)]);
+    myGame = new Game(split[Math.floor(Math.random()*split.length)]);
 
-      console.log("Guess a State Capital, Good Luck!\n");
-      myGame.word.display();
-
-      guessLetter();
+    console.log("Guess a State Capital, Good Luck!\n");
+    myGame.word.display();
+    console.log('\n');
+    guessLetter();
 
     });
 }
@@ -69,24 +64,20 @@ function endGameMenu(){
         "Main Menu"
         ],
       name: "option"
-    }
-    ]).then(function(inquirerResponse) {
+    }]
+  ).then(function(inquirerResponse) {
       console.log(inquirerResponse.option);
       switch (inquirerResponse.option) {
       case 'New Game':
         newGame();
         break;
       case 'Main Menu':
+        clear();
         liri.mainMenu();
         break;
       default:
         console.log("Unhandled Case!");
     }
-
-
-    //   var guess = inquirerResponse.guess.toUpperCase();
-
-    //   myGame.guess(guess) ? newGame() : guessLetter();
 
     });
 }
